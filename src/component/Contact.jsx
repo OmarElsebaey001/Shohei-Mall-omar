@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useLanguage } from "../context/LanguageContext";
 
 function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,7 +25,7 @@ function Contact() {
       message: "",
     });
     // Show success toast
-    toast.success("Message sent successfully!");
+    toast.success(t("contact.successMessage"));
   };
 
   return (
@@ -36,11 +38,11 @@ function Contact() {
     >
       <div className="container mx-auto flex justify-center items-center h-full">
         <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
+          <h1 className="text-4xl font-bold mb-6 text-center">{t("contact.title")}</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="text-lg text-gray-700 block">
-                Name:
+                {t("contact.name")}
               </label>
               <input
                 type="text"
@@ -54,7 +56,7 @@ function Contact() {
             </div>
             <div className="mb-4">
               <label htmlFor="email" className="text-lg text-gray-700 block">
-                Email:
+                {t("contact.email")}
               </label>
               <input
                 type="email"
@@ -68,7 +70,7 @@ function Contact() {
             </div>
             <div className="mb-4">
               <label htmlFor="message" className="text-lg text-gray-700 block">
-                Message:
+                {t("contact.message")}
               </label>
               <textarea
                 id="message"
@@ -85,7 +87,7 @@ function Contact() {
                 type="submit"
                 className="bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-600"
               >
-                Send Message
+                {t("contact.sendButton")}
               </button>
             </div>
           </form>

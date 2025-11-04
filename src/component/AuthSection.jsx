@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useLanguage } from "../context/LanguageContext";
 
 const AuthSection = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const { t } = useLanguage();
 
   console.log(isAuthenticated);
 
@@ -24,7 +26,7 @@ const AuthSection = () => {
             onClick={() => logout({ returnTo: window.location.origin })}
             className="text-white md:ml-7 w-full hover:bg-orange-400 rounded-md px-3 py-2 text-sm font-medium"
           >
-            LogOut
+            {t("navbar.logout")}
           </button>
         </>
       ) : (
@@ -32,7 +34,7 @@ const AuthSection = () => {
           onClick={loginWithRedirect}
           className="text-white hover:bg-orange-400 rounded-md px-3 py-2 text-sm font-medium"
         >
-          LogIn
+          {t("navbar.login")}
         </button>
       )}
     </div>

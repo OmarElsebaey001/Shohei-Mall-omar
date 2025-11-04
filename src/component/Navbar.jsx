@@ -9,15 +9,8 @@ import { useCart } from "react-use-cart";
 import eCom from "../assets/eCom.png";
 import AuthSection from "./AuthSection";
 import { Link } from "react-router-dom";
-
-// Navbar pagination
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Products", href: "/product", current: false },
-  { name: "About", href: "/about", current: false },
-  { name: "Contact", href: "/contact", current: false },
-];
-const cartNavigation = [{ name: "Cart", href: "/cart", current: false }];
+import { useLanguage } from "../context/LanguageContext";
+import LanguageSwitch from "./LanguageSwitch";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -28,6 +21,16 @@ const Navbar = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
   const { isEmpty, totalItems } = useCart();
+  const { t } = useLanguage();
+
+  // Navbar pagination with translations
+  const navigation = [
+    { name: t("navbar.home"), href: "/", current: true },
+    { name: t("navbar.products"), href: "/product", current: false },
+    { name: t("navbar.about"), href: "/about", current: false },
+    { name: t("navbar.contact"), href: "/contact", current: false },
+  ];
+  const cartNavigation = [{ name: t("navbar.cart"), href: "/cart", current: false }];
   return (
     <>
       <div className="min-h-full ">
@@ -46,7 +49,7 @@ const Navbar = () => {
                               alt="eCom brand logo"
                               className="ml-1 mr-2 w-6"
                             />
-                            Shohei Mall
+                            {t("navbar.brandName")}
                           </p>
                         </div>
                       </Link>
@@ -85,6 +88,11 @@ const Navbar = () => {
                       </button>
                     </div>
                   </div>
+                  {/* Language Switch */}
+                  <div className="hidden md:block ml-3">
+                    <LanguageSwitch />
+                  </div>
+                  
                   {/* auth */}
                   <AuthSection />
 
@@ -127,6 +135,10 @@ const Navbar = () => {
                       {item.name}
                     </Link>
                   ))}
+                  {/* Language Switch for Mobile */}
+                  <div className="px-3 py-2">
+                    <LanguageSwitch />
+                  </div>
                 </div>
               </Disclosure.Panel>
             </>

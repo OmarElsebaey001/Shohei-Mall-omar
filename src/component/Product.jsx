@@ -4,9 +4,11 @@ import toast from "react-hot-toast";
 import { useCart } from "react-use-cart";
 import { Link } from "react-router-dom";
 import ProductImage from "./ProductImage";
+import { useLanguage } from "../context/LanguageContext";
 
 const Product = () => {
   const { addItem, inCart } = useCart();
+  const { t, getCategoryTranslation } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortBy, setSortBy] = useState("default");
   const [loading, setLoading] = useState(true);
@@ -26,7 +28,7 @@ const Product = () => {
 
   const handleClick = (product) => {
     addItem(product);
-    toast.success("Item added to the cart.");
+    toast.success(t("products.addToCart"));
   };
 
   // ✅ UseMemo to recalc filtered+sorted products only when filters change
@@ -68,7 +70,7 @@ const Product = () => {
         {/* Filters */}
         <div className="flex bg-orange-400 flex-col lg:flex-row justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-white m-2 text-center">
-            Apply Filters
+            {t("products.applyFilters")}
           </h2>
           <div className="flex flex-col md:flex-row justify-between lg:gap-x-5 md:my-2 text-xs md:text-base">
             <select
@@ -76,11 +78,11 @@ const Product = () => {
               onChange={handleCategoryChange}
               value={selectedCategory}
             >
-              <option value="">Categories</option>
+              <option value="">{t("products.categories")}</option>
               {[...new Set(product_data.map((c) => c.category))].map(
                 (category, index) => (
                   <option key={index} value={category}>
-                    {category}
+                    {getCategoryTranslation(category)}
                   </option>
                 )
               )}
@@ -90,20 +92,20 @@ const Product = () => {
               className={`text-white ${sortBy === "Ratings" && "font-bold"}`}
               onClick={() => handleSortChange("Ratings")}
             >
-              Ratings
+              {t("products.ratings")}
             </button>
            <select
   className="font-normal tracking-tight text-white bg-orange-400 border-2 border-white px-2 py-1"
   value={sortBy}
   onChange={(e) => setSortBy(e.target.value)}
 >
-  <option value="default">Sort by Price</option>
-  <option value="priceHighToLow">Price: Expensive</option>
-  <option value="priceLowToHigh">Price: Cheap</option>
+  <option value="default">{t("products.sortByPrice")}</option>
+  <option value="priceHighToLow">{t("products.priceExpensive")}</option>
+  <option value="priceLowToHigh">{t("products.priceCheap")}</option>
 </select>
 
             <button className="text-white" onClick={resetFilters}>
-              Reset Filters
+              {t("products.resetFilters")}
             </button>
           </div>
         </div>
@@ -122,7 +124,7 @@ const Product = () => {
                       <div className="flex flex-col">
                         <div className="mt-4 flex justify-between">
                           <h3 className="text-sm text-gray-700">
-                            {product.category}
+                            {getCategoryTranslation(product.category)}
                           </h3>
                           <p className="text-sm font-medium text-gray-900">
                             ${product.price}
@@ -138,7 +140,7 @@ const Product = () => {
                   <div className="mt-4">
                     {inCart(product.id) ? (
                       <p className="w-full text-center rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white">
-                        In Cart
+                        {t("products.inCart")}
                       </p>
                     ) : (
                       <button
@@ -146,7 +148,7 @@ const Product = () => {
                         className="w-full rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
                         onClick={() => handleClick(product)}
                       >
-                        Add To Cart →
+                        {t("products.addToCart")}
                       </button>
                     )}
                   </div>

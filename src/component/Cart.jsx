@@ -13,7 +13,10 @@ import {
 } from "react-icons/ai";
 import { useCart } from "react-use-cart";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
+
 const Cart = () => {
+  const { t } = useLanguage();
   const {
     isEmpty,
     items,
@@ -28,13 +31,13 @@ const Cart = () => {
         <div className="flex flex-row justify-center px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="w-fit flex flex-col   ">
             <AiOutlineShopping size={150} className="mx-7" />
-            <h3 className="mx-2">No item added to your cart</h3>
+            <h3 className="mx-2">{t("cart.noItems")}</h3>
             <Link to="/product">
               <button
                 type="button"
                 className="flex items-center m-2 justify-center rounded-md border border-transparent bg-orange-700 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-500"
               >
-                Continue Shopping
+                {t("cart.continueShopping")}
               </button>
             </Link>
           </div>
@@ -44,7 +47,7 @@ const Cart = () => {
       <div className="flex flex-col  justify-between">
         <div className="flex items-start justify-between">
           <div className="text-lg font-medium text-gray-900 ">
-            Shopping cart
+            {t("cart.title")}
           </div>
           <div className="ml-3 flex h-7 items-center ">
             <Link to="/modal">
@@ -54,7 +57,7 @@ const Cart = () => {
                 className="relative -m-2 p-2 font-medium text-indigo-600 hover:text-indigo-500"
               >
                 <span className="absolute -inset-0.5" />
-                Remove All Items
+                {t("cart.removeAll")}
               </button>
             </Link>
           </div>
@@ -86,7 +89,7 @@ const Cart = () => {
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
                         <div className="quantity flex flex-row my-2">
-                          <h3 className="my-2.5">Quantity:</h3>
+                          <h3 className="my-2.5">{t("cart.quantity")}</h3>
                           <p className="quantity-desc flex flex-row mx-2 border p-1 border-indigo-600">
                             <button
                               className="minus mt-1 "
@@ -116,7 +119,7 @@ const Cart = () => {
                           </p>
                         </div>
                         <p className="text-gray-500">
-                          Qty {product.rating.count}
+                          {t("cart.qty")} {product.rating.count}
                         </p>
 
                         <div className="flex">
@@ -125,7 +128,7 @@ const Cart = () => {
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                             onClick={() => removeItem(product.id)}
                           >
-                            Remove
+                            {t("cart.remove")}
                           </button>
                         </div>
                       </div>
@@ -139,12 +142,12 @@ const Cart = () => {
 
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flex justify-between text-base font-medium text-gray-900 bg-orange-400 rounded-md py-3">
-          <p className="ml-3">Grand Total</p>
+          <p className="ml-3">{t("cart.grandTotal")}</p>
           <p className="mr-7">{cartTotal.toFixed(2)}</p>
         </div>
         <div className="bg-gray-600 rounded-md py-1 px-3 mt-3 pb-2">
           <p className="mt-0.5 text-sm text-white ">
-            Shipping and taxes calculated at checkout.
+            {t("cart.shippingNote")}
           </p>
         </div>
         <div className="mt-6">
@@ -152,18 +155,18 @@ const Cart = () => {
             to="/checkout"
             className="flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-500"
           >
-            Checkout
+            {t("cart.checkout")}
           </Link>
         </div>
         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
           <p>
-            or
+            {t("cart.or")}
             <Link to="/product">
               <button
                 type="button"
                 className="ml-2 font-medium text-orange-600 hover:text-indigo-500"
               >
-                Continue Shopping
+                {t("cart.continueShopping")}
                 <span aria-hidden="true"> &rarr;</span>
               </button>
             </Link>

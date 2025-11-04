@@ -13,29 +13,32 @@ import Checkout from "./component/Checkout";
 import Exit from "./component/Exit";
 import { CartProvider } from "react-use-cart";
 import ProductPage from "./component/ProductPage";
+import { LanguageProvider } from "./context/LanguageContext";
 
 function App() {
   return (
     <>
-      <CartProvider>
-        <Router>
-          <div>
-            <Toaster />
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/product" element={<Product />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/exit" element={<Exit />} />
-              <Route path="/authSection" element={<AuthSection />} />
-            </Routes>
-          </div>
-        </Router>
-      </CartProvider>
+      <LanguageProvider>
+        <CartProvider>
+          <Router>
+            <div>
+              <Toaster />
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/product" element={<Product />} />
+                <Route path="/product/:id" element={<ProductPage />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/exit" element={<Exit />} />
+                <Route path="/authSection" element={<AuthSection />} />
+              </Routes>
+            </div>
+          </Router>
+        </CartProvider>
+      </LanguageProvider>
     </>
   );
 }

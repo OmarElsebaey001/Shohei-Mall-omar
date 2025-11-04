@@ -1,35 +1,38 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+  
   return (
     <div className="relative overflow-hidden bg-white mb-3">
       <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40 ">
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              New
+              {t("home.new")}
               <span className="text-orange-600 p-4">
                 <span className="text-[6rem]">S</span>
-                eason.
+                {t("home.season")}
               </span>
               <br />
-              New
+              {t("home.new")}
               <span className="text-orange-600 p-4">
                 <span className="text-[4.2rem]">M</span>
-                ood.
+                {t("home.mood")}
               </span>
               <br />
-              New
-              <span className="text-orange-600 p-4">You.</span>
+              {t("home.new")}
+              <span className="text-orange-600 p-4">{t("home.you")}</span>
             </h1>
             <p className="mt-4 flex text-xl text-gray-500">
-              It's Time To Turn Over A New Leaf🌿
+              {t("home.tagline")}
             </p>
             <Link
               to="/product"
               className="inline-block rounded-md border border-transparent bg-orange-600 px-8 py-3 text-center font-medium text-white hover:bg-orange-700 mt-4"
             >
-              Explore Now 🌿
+              {t("home.exploreButton")}
             </Link>
           </div>
           <div className="mt-10">
